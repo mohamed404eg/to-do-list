@@ -13,12 +13,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 //import AdbIcon from '@mui/icons-material/Adb';
 import BallotIcon from "@mui/icons-material/Ballot";
+import LinkStyle from "@mui/material/Link";
 // db
 import { dbUser } from "./db/db";
 import Dexie from "dexie";
 import { useLiveQuery } from "dexie-react-hooks";
+import { Link } from "react-router-dom";
 // db //
-const pages = ["Products", "Pricing", "Blog"];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavBar() {
@@ -31,10 +33,10 @@ function NavBar() {
 
   let AvatarURL;
   let UserName;
-  if (isUser != undefined) {
+  if (isUser != undefined && isUser.length > 0) {
     AvatarURL = URL.createObjectURL(isUser[0].image);
     //  isUser[0].image
-    UserName = (isUser[0].name).split(' ')[0];
+    UserName = isUser[0].name.split(" ")[0];
   }
 
   // get User \\
@@ -60,69 +62,37 @@ function NavBar() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <BallotIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            To Do List
-          </Typography>
-        
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+        <Toolbar
+          disableGutters
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <BallotIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="./"
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              To Do List
+            </Typography>
+          </div>
+
           <BallotIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="./"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -136,47 +106,31 @@ function NavBar() {
           >
             To Do List
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "black" , xl:"black", lg:"black"},
-              fontFamily: "monospace",
-              fontWeight: 700,
+          <Box sx={{ flexGrow: 0, right: "0" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="./"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "black", xl: "black", lg: "black" },
+                fontFamily: "monospace",
+                fontWeight: 700,
 
-              color: "inherit",
-              textDecoration: "none",
-              textTransform:"uppercase"
-            }}
-          >
-            {UserName}
-           
-          </Typography>
+                color: "inherit",
+                textDecoration: "none",
+                textTransform: "uppercase",
+              }}
+            >
+              {UserName}
+            </Typography>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={UserName} src={AvatarURL} />
-
               </IconButton>
-              
-              
             </Tooltip>
-
 
             <Menu
               sx={{ mt: "45px" }}
@@ -195,12 +149,15 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Link to={setting} key={setting}>
+                <MenuItem  onClick={handleCloseUserMenu}>
+                    <LinkStyle component="button" variant="body2">
+                      <Typography textAlign="center">{setting}</Typography>
+                    </LinkStyle>
                 </MenuItem>
+                  </Link>
               ))}
             </Menu>
-            
           </Box>
         </Toolbar>
       </Container>

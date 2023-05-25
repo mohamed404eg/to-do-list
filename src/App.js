@@ -8,6 +8,7 @@ import NavBar from "./NavBar";
 import MyTabs from "./MyTabs.js";
 import MySnackbar from "./MySnackbar";
 import MyDialogDelete from "./MyDialogDelete";
+import MyProfile from "./MyProfile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path="register" element={<Register />} />
           <Route path="/" element={<MyTabs></MyTabs>} />
+          <Route path="/Profile" element={<MyProfile></MyProfile>}></Route> 
         </Routes>
 
         <MySnackbar></MySnackbar>
