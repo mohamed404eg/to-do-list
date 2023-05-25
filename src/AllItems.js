@@ -7,24 +7,35 @@ import { useLiveQuery } from "dexie-react-hooks";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
+import NoToDoList from "./NoToDoList";
 
 // get list
 let ToDoList;
 
-
 export default function AllItems({ currentValue }) {
-
-// filter list
-if (currentValue === 0) {
-  function V1() {
-    ToDoList = useLiveQuery(() => dbList.dbList.toArray());
+  // filter list
+  if (currentValue === 0) {
+    function V0() {
+      ToDoList = useLiveQuery(() => dbList.dbList.toArray());
+    }
+    V0();
+  } else if (currentValue === 1) {
+     function V1() {
+      let before = useLiveQuery(() => dbList.dbList.toArray());
+      ToDoList =  before.filter(({ done }) => {
+        if (done === "true" || done === true) {
+          return true;
+        } else {
+          return false;
+        }
+      });
     }
     V1();
-  } else if (currentValue === 1) {
+  } else if (currentValue === 2) {
     function V2() {
       let before = useLiveQuery(() => dbList.dbList.toArray());
       ToDoList = before.filter(({ done }) => {
-        if (done === "true") {
+        if (done === "false" || done === false) {
           return true;
         } else {
           return false;
@@ -32,25 +43,11 @@ if (currentValue === 0) {
       });
     }
     V2();
-  } else if (currentValue === 2) {
-    function V3() {
-      let before = useLiveQuery(() => dbList.dbList.toArray());
-      ToDoList = before.filter(({ done }) => {
-        if (done === "false") {
-          return true;
-        } else {
-          return false;
-        }
-      });
-    }
-    V3();
   }
   // filter list \\
 
-  
-
   let ToDoListMap;
-  if (ToDoList !== undefined) {
+  if (ToDoList !== undefined && ToDoList.length > 0) {
     ToDoListMap = ToDoList.map((itme) => {
       let ItmeBodyShort = itme.body.substring(0, 100);
 
@@ -58,8 +55,7 @@ if (currentValue === 0) {
       let MyImage;
       if (itme.img) {
         MyImage = URL.createObjectURL(itme.img);
-      }
-
+      } 
       // image \\
 
       return (
@@ -75,7 +71,13 @@ if (currentValue === 0) {
         ></MyItem>
       );
     });
+  }else {
+
+    return (
+    <NoToDoList></NoToDoList>
+    )
   }
+
 
   // get list \\
 

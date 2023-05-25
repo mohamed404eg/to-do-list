@@ -4,23 +4,12 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Model from "./Model";
 import { useState } from "react";
+import { ExternHandelModel } from "./Model";
 export default function MyAdd() {
-  const [IsAppear, SetIsAppear] = useState(false);
+ 
+  
 
-  function HandalModel(event , prams) {
-    if (prams === true) {
-      SetIsAppear(true);
-      return;
-    }  else{
-      SetIsAppear(false);
-    }
-    
-    if(event === null) return;
-    if (event.target.name === "Cancel") {
-      SetIsAppear(false);
-    }
-    
-  }
+
 
   return (
     <>
@@ -36,14 +25,14 @@ export default function MyAdd() {
           color="primary"
           aria-label="add"
           onClick={() => {
-            SetIsAppear((t) => (t = true));
+            ExternHandelModel(true)
           }}
         >
           <AddIcon />
         </Fab>
       </Box>
 
-      <Model ModelAppear={IsAppear} HandalModel={HandalModel} />
+      <Model/>
     </>
   );
 }

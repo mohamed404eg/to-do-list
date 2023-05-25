@@ -19,7 +19,34 @@ import { dbList } from "./db/db";
 // api \\
 
 let EditHandelModel;
-export default function Model({ ModelAppear, HandalModel }) {
+let ExternHandelModel;
+export default function Model() {
+
+  function HandalModel(event , prams) {
+    if (prams === true) {
+    
+      SetIsAppear(true)
+      return;
+    }  else{
+      SetIsAppear(false)
+    }
+    
+    if(event === null) return;
+    if (event.target.name === "Cancel") {
+      SetIsAppear(false)
+    }
+    
+  }
+
+
+  const [IsAppear, SetIsAppear] = useState(false);
+
+  // Extern Handel Model
+  ExternHandelModel = (Open) => {
+    SetIsAppear(Open);
+  };
+  // Extern Handel Model
+
   let [stateEditModel, SetStateEditModel] = useState(false);
 
   let [DataToDOList, SetDataToDOList] = useState({
@@ -60,7 +87,8 @@ export default function Model({ ModelAppear, HandalModel }) {
       title: "",
       body: "",
       img: null,
-      DateCreated: null,
+      DateCreated: GenerateDateCreated(),
+      done: false,
     });
   } //  clear input //
 
@@ -159,10 +187,10 @@ export default function Model({ ModelAppear, HandalModel }) {
     }
   }
 
-  if (ModelAppear) {
+  if (IsAppear) {
     return (
       <div>
-        <Dialog name="Cancel" open={ModelAppear}>
+        <Dialog name="Cancel" open={IsAppear}>
           <DialogTitle>New To Do List</DialogTitle>
           <DialogContent>
             <DialogContentText>Write your own To Do List ✍️</DialogContentText>
@@ -277,4 +305,4 @@ export default function Model({ ModelAppear, HandalModel }) {
   }
 }
 
-export { EditHandelModel };
+export { EditHandelModel, ExternHandelModel };

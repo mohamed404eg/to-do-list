@@ -21,7 +21,24 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { Link } from "react-router-dom";
 // db //
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  {
+    name: "HOME",
+    path: "/",
+    key: 3,
+  },
+  {
+    name: "Profile",
+    path: "Profile",
+    key: 1,
+  },
+  {
+    name: "Logout",
+    path: "Logout",
+    key: 2,
+  },
+ 
+];
 
 function NavBar() {
   // get User
@@ -34,7 +51,9 @@ function NavBar() {
   let AvatarURL;
   let UserName;
   if (isUser != undefined && isUser.length > 0) {
-    AvatarURL = URL.createObjectURL(isUser[0].image);
+    if (isUser[0].image != null) {
+      AvatarURL = URL.createObjectURL(isUser[0].image);
+    }
     //  isUser[0].image
     UserName = isUser[0].name.split(" ")[0];
   }
@@ -59,6 +78,10 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+  function NavBarHandelClick(event) {
+    event.preventDefault();
+    console.log(event.currentTarget.name);
+  }
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -149,13 +172,13 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                  <Link to={setting} key={setting}>
-                <MenuItem  onClick={handleCloseUserMenu}>
+                <Link to={setting.path} key={setting.key} name={setting.name}>
+                  <MenuItem onClick={handleCloseUserMenu}>
                     <LinkStyle component="button" variant="body2">
-                      <Typography textAlign="center">{setting}</Typography>
+                      <Typography textAlign="center">{setting.name}</Typography>
                     </LinkStyle>
-                </MenuItem>
-                  </Link>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

@@ -55,9 +55,9 @@ export default function MyItem({
     let done = event.currentTarget.getAttribute("done");
 
     if (done === "true") {
-      done = "false";
+      done = false;
     } else {
-      done = "true";
+      done = true;
     }
 
     dbList.dbList.update(parseInt(id), { done: done }).then(function (updated) {
@@ -84,9 +84,10 @@ export default function MyItem({
 
   // doneColor
   let doneColor;
-  if (done === "true") {
+  if (done === true) {
     doneColor = "primary";
   }
+
   // doneColor \\
 
   async function EditHandel(event) {

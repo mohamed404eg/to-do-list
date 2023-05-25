@@ -9,6 +9,7 @@ import MyTabs from "./MyTabs.js";
 import MySnackbar from "./MySnackbar";
 import MyDialogDelete from "./MyDialogDelete";
 import MyProfile from "./MyProfile";
+import MyLogout from "./MyLogout";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="/" element={<MyTabs></MyTabs>} />
           <Route path="/Profile" element={<MyProfile></MyProfile>}></Route> 
+          <Route path="/Logout" element={<MyLogout></MyLogout>}></Route> 
         </Routes>
 
         <MySnackbar></MySnackbar>
