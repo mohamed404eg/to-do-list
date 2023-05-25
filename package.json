@@ -17,7 +17,6 @@
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
-    "homepage": "https://mohamed404eg.github.io/to-do-list"
   },
   "scripts": {
     "start": "react-scripts start",
