@@ -106,7 +106,14 @@ export default function MyItem({
   }
   return (
     <>
-      <Card sx={{ maxWidth: 400, marginTop: "10px", marginBottom: "10px" }}>
+      <Card
+        sx={{
+          maxWidth: 400,
+          marginTop: "10px",
+          marginBottom: "10px",
+          boxShadow: "0px 5px 10px rgb(81 85 88 / 40%)",
+        }}
+      >
         <CardHeader title={title} subheader={DateCreated} />
         {image ? (
           <CardMedia component="img" height="194" image={image} alt={title} />
