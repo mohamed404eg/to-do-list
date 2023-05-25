@@ -99,22 +99,20 @@ export default function MyItem({
     EditHandelModel(GetToDoList);
   }
 
-
-  function DeleteHandel(event){
+  function DeleteHandel(event) {
     let id = event.currentTarget.id;
-//onsole.log(id)
-    FUNHnadelMyDialogDelete("Do you want to delete this to do list" , true , id)
+    //onsole.log(id)
+    FUNHnadelMyDialogDelete("Do you want to delete this to do list", true, id);
   }
   return (
     <>
       <Card sx={{ maxWidth: 400, marginTop: "10px", marginBottom: "10px" }}>
         <CardHeader title={title} subheader={DateCreated} />
-        <CardMedia
-          component="img"
-          height="194"
-          image={image}
-          alt="Paella dish"
-        />
+        {image ? (
+          <CardMedia component="img" height="194" image={image} alt={title} />
+        ) : (
+          ""
+        )}
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             {bodyShort}
@@ -140,9 +138,7 @@ export default function MyItem({
             <EditIcon />
           </IconButton>
 
-          <IconButton aria-label="share"
-          id={id} onClick={DeleteHandel}
-          >
+          <IconButton aria-label="share" id={id} onClick={DeleteHandel}>
             <DeleteIcon />
           </IconButton>
 
@@ -162,7 +158,6 @@ export default function MyItem({
           </CardContent>
         </Collapse>
       </Card>
-    
     </>
   );
 }

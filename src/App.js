@@ -10,6 +10,7 @@ import MySnackbar from "./MySnackbar";
 import MyDialogDelete from "./MyDialogDelete";
 import MyProfile from "./MyProfile";
 import MyLogout from "./MyLogout";
+import { CheckRegistr } from "./CheckRegistr";
 
 function App() {
   return (
@@ -23,12 +24,13 @@ function App() {
       }}
     >
       <Container maxWidth="md" sx={{}}>
+        <CheckRegistr  />
         <NavBar></NavBar>
         <Routes>
           <Route path="register" element={<Register />} />
           <Route path="/" element={<MyTabs></MyTabs>} />
-          <Route path="/Profile" element={<MyProfile></MyProfile>}></Route> 
-          <Route path="/Logout" element={<MyLogout></MyLogout>}></Route> 
+          <Route path="/Profile" element={<MyProfile></MyProfile>}></Route>
+          <Route path="/Logout" element={<MyLogout></MyLogout>}></Route>
         </Routes>
 
         <MySnackbar></MySnackbar>

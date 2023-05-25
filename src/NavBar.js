@@ -40,7 +40,10 @@ const settings = [
  
 ];
 
+
 function NavBar() {
+
+
   // get User
   let isUser;
   function CheckRegistr() {
@@ -67,7 +70,9 @@ function NavBar() {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+    if(isUser.length !== 0) { 
+      setAnchorElUser(event.currentTarget);
+    }
   };
 
   const handleCloseNavMenu = () => {

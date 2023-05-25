@@ -2,13 +2,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dbUser } from "./db/db";
 import { useLiveQuery } from "dexie-react-hooks";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
 import { FUNHnadelMySnackbar } from "./MySnackbar";
 export default function MyProfile() {
-
   const [myForm, setMyForm] = useState({
     id: 1,
     name: "",
@@ -16,7 +15,6 @@ export default function MyProfile() {
   });
 
   // get User
-
 
   let isUser;
   function CheckRegistr() {
@@ -27,17 +25,14 @@ export default function MyProfile() {
   let AvatarURL;
   let UserName;
   if (isUser != undefined && isUser.length > 0) {
-    AvatarURL = URL.createObjectURL(isUser[0].image);
+    if (isUser[0].image !== null) {
+      AvatarURL = URL.createObjectURL(isUser[0].image);
+    }
     //  isUser[0].image
     UserName = isUser[0].name;
-
-
-
   }
 
   // get User \\
-
-
 
   function handleForm(event) {
     let inputName = event.currentTarget.name;
@@ -58,7 +53,13 @@ export default function MyProfile() {
   }
 
   function ChangeUser() {
-    dbUser.dbUser.update(myForm.id, myForm).then(function (updated) {
+    // تحويل الحالة إلى مصفوفة وإزالة المفاتيح التي لها قيمة فارغة
+    const entries = Object.entries(myForm).filter(
+      ([_, value]) => value !== "" && value !== null
+    );
+    const newForm = Object.fromEntries(entries);
+
+    dbUser.dbUser.update(myForm.id, newForm).then(function (updated) {
       if (updated) {
         // SetMyAlerts
 
@@ -71,7 +72,7 @@ export default function MyProfile() {
   return (
     <>
       <div style={{ marginTop: "20px" }}>
-        <img src={AvatarURL} style={{ width: "100px" }}></img>
+        <img src={AvatarURL} style={{ maxWidth: "30vw" }}></img>
         <h4>{UserName}</h4>
       </div>
       <>
